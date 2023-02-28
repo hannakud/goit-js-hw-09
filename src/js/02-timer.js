@@ -49,12 +49,18 @@ function convertMs(ms) {
   // Remaining seconds
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
-  return { days, hours, minutes, seconds };
+  const formattedDays = days.toString().padStart(2, '0');
+  const formattedHours = hours.toString().padStart(2, '0');
+  const formattedMinutes = minutes.toString().padStart(2, '0');
+  const formattedSeconds = seconds.toString().padStart(2, '0');
+
+  return `${formattedDays}:${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 }
 
 function showTime() {
   const diffMs = targetDate.getTime() - Date.now();
-  const { days, hours, minutes, seconds } = convertMs(diffMs);
+  const time = convertMs(diffMs);
+  const [days, hours, minutes, seconds] = time.split(':');
   daysElement.textContent = days;
   hoursElement.textContent = hours;
   minutesElement.textContent = minutes;
